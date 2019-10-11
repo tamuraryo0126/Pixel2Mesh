@@ -122,3 +122,4 @@ checkpoints
 
 # IDEA
 .idea
+script/docker/.DS_Store
