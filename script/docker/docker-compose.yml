@@ -1,0 +1,24 @@
+version: '2.3'
+services:
+    $(whoami)_Pixel2Mesh:
+        build:
+            context: .
+            args:
+              user: $(whoami)
+              password: $(cat config.txt | grep password | awk '{print $2}')
+              uid: $(id -u)
+              gid: $(id -g)
+        image: $(whoami)/Pixel2Mesh
+        container_name: $(whoami)_Pixel2Mesh
+        hostname: $(hostname)-Pixel2Mesh
+        shm_size: 16gb
+        ports:
+          - "$(cat config.txt | grep ssh_port | awk '{print $2}'):22"
+        volumes:
+            - "/home/$(whoami)/workspace/:${HOME}/"
+            - "/mnt/kraz:/mnt/kraz"
+        tty: True
+
+networks:
+  default:
+    driver: bridge
